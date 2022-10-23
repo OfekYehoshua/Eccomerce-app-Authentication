@@ -1,0 +1,37 @@
+import axios from 'axios'
+
+
+const API_URL = process.env.REACT_APP_BACKEND_URL+'/api/user'
+
+const signup = async (userData) => {
+    const response = await axios.post(API_URL+'/signup', userData)
+  
+    if (response.data) {
+      localStorage.setItem('user', JSON.stringify(response.data))
+    }
+  
+    return response.data
+  }
+
+  const login = async (userData) => {
+    const response = await axios.post(API_URL+'/login', userData)
+  
+    if (response.data) {
+      localStorage.setItem('user', JSON.stringify(response.data))
+    }
+  
+    return response.data
+  }
+  
+  // Logout user
+  const logout = () => {
+    localStorage.removeItem('user')
+  }
+  
+  const authServices = {
+    signup,
+    logout,
+    login,
+  }
+  
+  export default authServices
